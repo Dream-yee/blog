@@ -2,8 +2,13 @@ const defaultPost = "posts/home.md";
 
 async function loadMarkdown(url) {
   try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`Unable to load ${url}`);
+    let res = await fetch(url);
+    if (!res.ok) {
+      res = await fetch("https://raw.githubusercontent.com/Dream-yee/blog/refs/heads/main/" + url);
+      if(!res.ok) {
+        throw new Error(`Unable to load ${url}`);
+      }
+    }
     return await res.text();
   } catch (error) {
     document.getElementById("postBody").innerText = "文章載入失敗，請確認檔案路徑是否正確。";
