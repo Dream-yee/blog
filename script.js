@@ -1,8 +1,17 @@
 const defaultPost = "posts/home.md";
 
+function buildBaseUrl() {
+  const location = window.location;
+  let pathname = location.pathname;
+  if (!pathname.endsWith("/")) {
+    pathname = pathname.replace(/\/[^/]*$/, "/");
+  }
+  return `${location.origin}${pathname}`;
+}
+
 async function loadMarkdown(url) {
   try {
-    const res = await fetch(url);
+    const res = await fetch(new URL(url, buildBaseUrl()).href);
     if (!res.ok) throw new Error(`Unable to load ${url}`);
     return await res.text();
   } catch (error) {
