@@ -53,3 +53,4 @@ node generate-posts.js
 - `script.js` 會解析前端 metadata 與 Markdown 內容。
 - 若 `banner` metadata 存在，頁面最上方 Banner 會自動使用。
 - 文章會置中顯示在一個浮動的卡片上。
+
