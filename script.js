@@ -101,6 +101,77 @@ function formatDate(value) {
   });
 }
 
+function buildBaseUrl() {
+  const location = window.location;
+  let pathname = location.pathname;
+  if (!pathname.endsWith("/")) {
+    pathname = pathname.replace(/\/[^/]*$/, "/");
+  }
+  return `${location.origin}${pathname}`;
+}
+
+function updatePageMeta(meta) {
+  const title = meta.title ? `${meta.title} | 我的部落格` : "我的部落格";
+  const description = meta.subtitle || "A dark lavender blog built with Markdown.";
+
+  document.title = title;
+  updateMetaTag("description", description);
+  updateMetaTag("og:title", title, true);
+  updateMetaTag("og:description", description, true);
+  updateMetaTag("twitter:title", title);
+  updateMetaTag("twitter:description", description);
+  if (meta.banner) {
+    const imageUrl = new URL(meta.banner, buildBaseUrl()).href;
+    updateMetaTag("og:image", imageUrl, true);
+    updateMetaTag("twitter:image", imageUrl);
+  }
+  updateJsonLd(meta, description);
+}
+
+function updateMetaTag(name, content, isProperty = false) {
+  const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+  let node = document.head.querySelector(selector);
+  if (!node) {
+    node = document.createElement("meta");
+    if (isProperty) {
+      node.setAttribute("property", name);
+    } else {
+      node.setAttribute("name", name);
+    }
+    document.head.appendChild(node);
+  }
+  node.setAttribute("content", content);
+}
+
+function updateJsonLd(meta, description) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: meta.title || "我的部落格",
+    description,
+    url: window.location.href,
+    datePublished: meta.published || undefined,
+    dateModified: meta.updated || undefined,
+    author: {
+      "@type": "Person",
+      name: "Dream-yee",
+    },
+  };
+
+  if (meta.banner) {
+    data.image = new URL(meta.banner, buildBaseUrl()).href;
+  }
+
+  let script = document.getElementById("jsonld");
+  if (!script) {
+    script = document.createElement("script");
+    script.id = "jsonld";
+    script.type = "application/ld+json";
+    document.head.appendChild(script);
+  }
+  script.textContent = JSON.stringify(data, null, 2);
+}
+
 function updateBanner(metadata) {
   const banner = document.getElementById("heroBanner");
   if (metadata.banner) {
@@ -109,6 +180,7 @@ function updateBanner(metadata) {
 }
 
 function renderPost(meta, content) {
+  updatePageMeta(meta);
   document.getElementById("postTitle").textContent = meta.title || "未命名文章";
   document.getElementById("postMeta").textContent = meta.subtitle || "";
   updateBanner(meta);
