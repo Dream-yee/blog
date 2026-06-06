@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "home",
+    "title": "我",
+    "subtitle": "你好",
+    "published": "2026-06-06",
+    "updated": "",
+    "tags": [
+      "很重要"
+    ],
+    "banner": "images/banner.jpg"
+  }
+]

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文章瀏覽 | Dreamyee's blog</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero-banner archive-banner">
+        <div class="hero-overlay"></div>
+        <div class="topbar">
+          <a class="brand nav-link" href="index.html">Dreamyee</a>
+          <a class="nav-link" href="archive.html">文章瀏覽</a>
+        </div>
+        <div class="hero-content">
+          <p class="eyebrow">文章瀏覽</p>
+          <h1>你可以在這裡搜尋文章</h1>
+          <p class="post-meta">把我扒開來看</p>
+        </div>
+      </header>
+
+      <main class="content-area archive-content">
+        <section class="browse-panel">
+          <div class="browse-controls">
+            <input id="searchInput" type="search" placeholder="搜尋標題、摘要或標籤" autocomplete="off" />
+            <div class="sort-row">
+              <label for="sortOrder">排序：</label>
+              <select id="sortOrder">
+                <option value="newest">最新發布</option>
+                <option value="oldest">最早發布</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tag-filter" id="tagFilter"></div>
+        </section>
+
+        <section class="article-list" id="articleList"></section>
+      </main>
+    </div>
+
+    <script src="archive.js"></script>
+  </body>
+</html>
