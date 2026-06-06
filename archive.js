@@ -1,14 +1,4 @@
 const manifestPath = "posts/posts.json";
-
-function buildBaseUrl() {
-  const location = window.location;
-  let pathname = location.pathname;
-  if (!pathname.endsWith("/")) {
-    pathname = pathname.replace(/\/[^/]*$/, "/");
-  }
-  return `${location.origin}${pathname}`;
-}
-
 function formatDate(value) {
   if (!value) return "";
   const date = new Date(value);
@@ -119,7 +109,7 @@ let currentTags = [];
 
 async function init() {
   try {
-    const response = await fetch(new URL(manifestPath, buildBaseUrl()).href);
+    const response = await fetch(manifestPath);
     if (!response.ok) throw new Error("無法載入文章清單");
     const posts = await response.json();
     const searchInput = document.getElementById("searchInput");
