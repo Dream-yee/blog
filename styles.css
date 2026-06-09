@@ -338,6 +338,19 @@ h1 {
   margin: 1rem 0;
 }
 
+.post-body ul {
+  margin: 1rem 0 1.25rem;
+  padding-left: 1.35rem;
+}
+
+.post-body li {
+  margin: 0.35rem 0;
+}
+
+.post-body li::marker {
+  color: var(--lavender);
+}
+
 .post-body img {
   max-width: 100%;
   border-radius: 18px;
@@ -367,10 +380,35 @@ h1 {
   overflow-x: auto;
 }
 
+.post-body pre code {
+  display: block;
+  color: var(--text);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .post-body code {
   background: rgba(255, 255, 255, 0.08);
   padding: 0.2rem 0.45rem;
   border-radius: 0.45rem;
+}
+
+.token-comment {
+  color: #7f95c4;
+}
+
+.token-string {
+  color: #c9a9ff;
+}
+
+.token-keyword {
+  color: #6ee7ff;
+  font-weight: 600;
+}
+
+.token-number {
+  color: #f5c26b;
 }
 
 @media (max-width: 720px) {

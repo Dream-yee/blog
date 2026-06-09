@@ -1,5 +1,16 @@
 [
   {
+    "slug": "get_ipv4",
+    "title": "取得 ipv4 address",
+    "subtitle": "我在live server要給手機測試",
+    "published": "2026-06-08",
+    "updated": "",
+    "tags": [
+      "trivia"
+    ],
+    "banner": ""
+  },
+  {
     "slug": "home",
     "title": "我",
     "subtitle": "你好",

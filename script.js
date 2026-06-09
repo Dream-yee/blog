@@ -48,9 +48,15 @@ function renderMarkdown(md) {
     .replace(/^###\s*(.*)$/gm, "<h3>$1</h3>")
     .replace(/^##\s*(.*)$/gm, "<h2>$1</h2>")
     .replace(/^#\s*(.*)$/gm, "<h1>$1</h1>")
-    .replace(/```([\s\S]*?)```/g, (match, code) => `<pre><code>${escapeHtml(code.trim())}</code></pre>`)
+    .replace(/^---\s*$/gm, "<hr />")
+    .replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+      const mappedLang = mapLanguage(lang);
+      const className = mappedLang ? ` class="language-${mappedLang}"` : "";
+      return `<pre><code${className}>${escapeHtml(code.trim())}</code></pre>`;
+    })
+    .replace(/`([^`]+)`/g, (match, code) => `<code>${escapeHtml(code)}</code>`)
     .replace(/\n\n+/g, "\n\n")
-    .replace(/(^|\n)\*\s+(.+)(\n|$)/g, "$1<li>$2</li>$3")
+    .replace(/(^|\n)[*+-]\s+(.+)(\n|$)/gm, "$1<li>$2</li>$3")
     .replace(/(<li>.*<\/li>\n?)+/g, (list) => `<ul>${list}</ul>\n`)
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.*?)\*/g, "<em>$1</em>")
@@ -69,7 +75,7 @@ function renderMarkdown(md) {
     })
     .replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2' target='_blank' rel='noreferrer'>$1</a>")
     .replace(/(^|\n)([^<\n][^\n]*)(\n|$)/g, (match, before, line, after) => {
-      const isBlock = /^(<h|<ul|<pre|<blockquote|<img|<p|<\/)/.test(line.trim());
+      const isBlock = /^(<h|<ul|<pre|<blockquote|<img|<li|<p|<\/)/.test(line.trim());
       return isBlock ? match : `${before}<p>${line.trim()}</p>${after}`;
     });
 
@@ -81,6 +87,17 @@ function escapeHtml(text) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+}
+
+function mapLanguage(lang) {
+  if (!lang) return "";
+  const normalized = lang.toLowerCase();
+  const alias = {
+    py: "python",
+    js: "javascript",
+    ts: "typescript",
+  };
+  return alias[normalized] || normalized;
 }
 
 function getPostPath() {
@@ -203,6 +220,9 @@ function renderPost(meta, content) {
   });
 
   document.getElementById("postBody").innerHTML = renderMarkdown(content);
+  if (window.hljs) {
+    hljs.highlightAll();
+  }
 }
 
 async function init() {
