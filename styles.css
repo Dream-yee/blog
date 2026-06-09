@@ -43,7 +43,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 2rem;
+  padding: 2rem 1.25rem;
   background: linear-gradient(135deg, rgba(88, 64, 204, 0.4), rgba(59, 27, 102, 0.75)),
     url("images/banner.jpg") center/cover no-repeat;
   background-blend-mode: overlay;
@@ -61,6 +61,7 @@ body {
   max-width: 900px;
   width: 100%;
   text-align: center;
+  padding: 0 0.5rem;
   animation: fadeInUp 0.8s ease forwards;
 }
 
@@ -274,31 +275,16 @@ h1 {
   padding-top: 2rem;
 }
 
-@media (max-width: 720px) {
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .browse-panel,
-  .article-list,
-  .tag-filter {
-    width: 100%;
-  }
-
-  .article-card-content {
-    padding: 1.4rem;
-  }
-}
-
 .content-area {
   display: grid;
   place-items: center;
-  padding: 2.5rem 1.25rem 4rem;
+  width: 100%;
+  padding: 2.5rem 1rem 4rem;
 }
 
 .post-card {
-  width: min(100%, 910px);
+  width: 100%;
+  max-width: 910px;
   background: var(--panel);
   border: 1px solid var(--panel-border);
   border-radius: var(--radius);
@@ -390,10 +376,84 @@ h1 {
 @media (max-width: 720px) {
   .hero-banner {
     min-height: 230px;
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .browse-panel,
+  .article-list,
+  .tag-filter {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .browse-controls {
+    width: 100%;
+  }
+
+  .sort-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sort-row select,
+  #searchInput {
+    width: 100%;
+  }
+
+  .article-card-content {
+    padding: 1.4rem;
   }
 
   .post-card {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-banner {
+    min-height: auto;
+    padding: 1.25rem 0.9rem;
+  }
+
+  .hero-content {
+    padding: 0;
+  }
+
+  .topbar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .topbar .nav-link,
+  .topbar .brand {
+    width: auto;
+    text-align: left;
+  }
+
+  .topbar .nav-link {
+    align-self: center;
+  }
+
+  .post-meta-row {
+    gap: 0.75rem;
+    font-size: 0.92rem;
+  }
+
+  .post-body {
+    font-size: 1rem;
+  }
+
+  .tag-item {
+    font-size: 0.85rem;
+    padding: 0.45rem 0.8rem;
   }
 }
