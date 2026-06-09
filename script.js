@@ -111,7 +111,7 @@ function buildBaseUrl() {
 }
 
 function updatePageMeta(meta) {
-  const title = meta.title ? `${meta.title} | 我的部落格` : "我的部落格";
+  const title = meta.title ? `${meta.title} | Dreamyee's blog` : "Dreamyee's blog";
   const description = meta.subtitle || "A dark lavender blog built with Markdown.";
 
   document.title = title;
@@ -147,7 +147,7 @@ function updateJsonLd(meta, description) {
   const data = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: meta.title || "我的部落格",
+    headline: meta.title || "Dreamyee's blog",
     description,
     url: window.location.href,
     datePublished: meta.published || undefined,
