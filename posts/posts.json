@@ -1,5 +1,16 @@
 [
   {
+    "slug": "GSAT_2",
+    "title": "重考",
+    "subtitle": "",
+    "published": "2026-06-11",
+    "updated": "",
+    "tags": [
+      "紀錄"
+    ],
+    "banner": ""
+  },
+  {
     "slug": "get_ipv4",
     "title": "取得 ipv4 address",
     "subtitle": "我在live server要給手機測試",
@@ -15,7 +26,7 @@
     "title": "我",
     "subtitle": "你好",
     "published": "2026-06-06",
-    "updated": "",
+    "updated": "2026-06-11",
     "tags": [
       "很重要"
     ],

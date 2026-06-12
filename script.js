@@ -41,6 +41,7 @@ function parseFrontMatter(markdown) {
 }
 
 function renderMarkdown(md) {
+  let codeBlocks = [];
   let html = md
     .replace(/^######\s*(.*)$/gm, "<h6>$1</h6>")
     .replace(/^#####\s*(.*)$/gm, "<h5>$1</h5>")
@@ -52,8 +53,11 @@ function renderMarkdown(md) {
     .replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
       const mappedLang = mapLanguage(lang);
       const className = mappedLang ? ` class="language-${mappedLang}"` : "";
-      return `<pre><code${className}>${escapeHtml(code.trim())}</code></pre>`;
+      const block = `<pre><code${className}>${escapeHtml(code.trim())}</code></pre>`;
+      codeBlocks.push(block);
+      return `@@CODE_BLOCK_${codeBlocks.length - 1}@@`;
     })
+    .replace(/\|\|([\s\S]*?)\|\|/g, (match, text) => `<span class="hidden-text" tabindex="0">${escapeHtml(text)}</span>`)
     .replace(/`([^`]+)`/g, (match, code) => `<code>${escapeHtml(code)}</code>`)
     .replace(/\n\n+/g, "\n\n")
     .replace(/(^|\n)[*+-]\s+(.+)(\n|$)/gm, "$1<li>$2</li>$3")
@@ -74,10 +78,15 @@ function renderMarkdown(md) {
       return `<img src='${src}' alt='${alt}'${attrs}>`;
     })
     .replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2' target='_blank' rel='noreferrer'>$1</a>")
-    .replace(/(^|\n)([^<\n][^\n]*)(\n|$)/g, (match, before, line, after) => {
-      const isBlock = /^(<h|<ul|<pre|<blockquote|<img|<li|<p|<\/)/.test(line.trim());
-      return isBlock ? match : `${before}<p>${line.trim()}</p>${after}`;
-    });
+    .replace(/\n\n+/g, "\n\n")
+    .replace(/(^|\n)([^<\n][\s\S]*?)(?=\n\n|$)/g, (match, before, block) => {
+      const trimmed = block.trim();
+      const isBlock = /^(<h|<ul|<pre|<blockquote|<img|<li|<p|<\/)/.test(trimmed);
+      if (isBlock) return match;
+      const inner = trimmed.split("\n").join("<br>");
+      return `${before}<p>${inner}</p>`;
+    })
+    .replace(/@@CODE_BLOCK_(\d+)@@/g, (_, index) => codeBlocks[Number(index)] || '');
 
   return html;
 }
@@ -224,6 +233,30 @@ function renderPost(meta, content) {
     hljs.highlightAll();
   }
 }
+
+function setupHiddenTextToggles() {
+  const postBody = document.getElementById("postBody");
+  if (!postBody) return;
+
+  postBody.addEventListener("click", (event) => {
+    const target = event.target.closest(".hidden-text");
+    if (target) {
+      target.classList.toggle("revealed");
+    }
+  });
+
+  postBody.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      const target = event.target.closest(".hidden-text");
+      if (target) {
+        event.preventDefault();
+        target.classList.toggle("revealed");
+      }
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", setupHiddenTextToggles);
 
 async function init() {
   const path = getPostPath();
