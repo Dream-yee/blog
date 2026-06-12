@@ -88,6 +88,13 @@ function renderMarkdown(md) {
     })
     .replace(/@@CODE_BLOCK_(\d+)@@/g, (_, index) => codeBlocks[Number(index)] || '');
 
+  html = html.replace(/<h2>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2>|$)/g, (match, title, content) => {
+    const parts = content.split(/(<hr \/>)/);
+    if (parts.length > 1) {
+      return `<h2>${title}</h2><div class="post-section-body">${parts[0]}</div>${parts[1]}${parts.slice(2).join('')}`;
+    }
+    return `<h2>${title}</h2><div class="post-section-body">${content}</div>`;
+  });
   return html;
 }
 
@@ -205,13 +212,29 @@ function updateBanner(metadata) {
   }
 }
 
+function getWordCount(text) {
+  const cleaned = text
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/!\[[^\]]*\]\([^\)]*\)/g, " ")
+    .replace(/\[[^\]]*\]\([^\)]*\)/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[\p{P}\p{S}]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const cjkMatches = cleaned.match(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/gu) || [];
+  const englishMatches = cleaned.match(/[A-Za-z0-9]+/g) || [];
+  return cjkMatches.length + englishMatches.length;
+}
+
 function renderPost(meta, content) {
   updatePageMeta(meta);
   document.getElementById("postTitle").textContent = meta.title || "未命名文章";
   document.getElementById("postMeta").textContent = meta.subtitle || "";
   updateBanner(meta);
 
-  const postLength = content.trim().split(/\s+/).length;
+  const postLength = getWordCount(content);
   document.getElementById("postLength").textContent = `字數：約 ${postLength} 字`;
 
   const publish = formatDate(meta.published);
