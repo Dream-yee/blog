@@ -323,11 +323,11 @@ function createSurfButton() {
       iframe.src = videoUrl;
       videoWrapper.classList.remove("hidden");
       button.setAttribute("aria-expanded", "true");
-      button.textContent = "關閉長文輔助系統";
+      button.textContent = "關閉長文輔助功能";
     } else {
       videoWrapper.classList.add("hidden");
       button.setAttribute("aria-expanded", "false");
-      button.textContent = "開啟長文專注輔助系統";
+      button.textContent = "開啟長文輔助功能";
       iframe.src = "";
     }
   }
