@@ -120,8 +120,9 @@ h1 {
 .browse-panel {
   display: grid;
   gap: 1.25rem;
-  margin-bottom: 2rem;
-  width: min(100%, 910px);
+  margin: 0 auto 2rem;
+  width: 100%;
+  max-width: 1240px;
 }
 
 .browse-controls {
@@ -164,16 +165,20 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
-  width: min(100%, 910px);
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
 .tag-chip {
   border: 1px solid rgba(201, 169, 255, 0.15);
   cursor: pointer;
-  padding: 0.6rem 1rem;
-  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.06);
   color: var(--lavender);
+  min-width: 0;
+  white-space: nowrap;
   transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -192,7 +197,9 @@ h1 {
 .article-list {
   display: grid;
   gap: 1.25rem;
-  width: min(100%, 910px);
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
 .article-card {
@@ -272,19 +279,31 @@ h1 {
 }
 
 .archive-content {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
   padding-top: 2rem;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
 .content-area {
-  display: grid;
-  place-items: center;
+  display: flex;
+  /* justify-content: center; */
   width: 100%;
   padding: 2.5rem 1rem 4rem;
 }
 
+.content-area.archive-content {
+  display: inline;
+  justify-items: center;
+  gap: 1.5rem;
+}
+
 .post-card {
   width: 100%;
-  max-width: 910px;
+  max-width: 1234px;
   background: var(--panel);
   border: 1px solid var(--panel-border);
   border-radius: var(--radius);
@@ -459,6 +478,178 @@ h1 {
   text-decoration: none;
 }
 
+.content-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 300px);
+  gap: 2rem;
+  align-items: start;
+  width: min(100%, 1400px);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 1200px) {
+  .content-layout {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+}
+
+.surf-mode-row {
+  margin: 1.5rem 0;
+}
+
+.surf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(201, 169, 255, 0.12);
+  color: var(--lavender);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.surf-button:hover,
+.surf-button:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(201, 169, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.surf-button.hidden {
+  display: none;
+}
+
+.surf-sidebar {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+  max-height: calc(100vh - 140px);
+  overflow: hidden;
+  border-radius: 24px;
+  /* border: 1px solid rgba(255, 255, 255, 0.12); */
+  /* background: rgba(16, 18, 36, 0.95); */
+  padding: 1rem;
+}
+
+.surf-sidebar.hidden {
+  display: none;
+}
+
+.concept-list {
+  margin-bottom: 1.5rem;
+}
+
+.concept-list-title {
+  margin: 0 0 0.85rem;
+  color: var(--lavender);
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.concept-list-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.concept-item {
+  margin-bottom: 0.85rem;
+}
+
+.concept-item a {
+  color: var(--text);
+  text-decoration: none;
+  display: block;
+  line-height: 1.4;
+}
+
+.concept-item.concept-h1 a {
+  font-weight: 700;
+}
+
+.concept-item.concept-h2 a {
+  color: var(--muted);
+  padding-left: 0.5rem;
+}
+
+.concept-item a:hover,
+.concept-item a:focus-visible {
+  color: var(--lavender);
+  text-decoration: underline;
+}
+
+.surf-video-wrapper.hidden {
+  display: none;
+}
+
+.surf-video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.surf-video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .surf-sidebar {
+    display: block;
+    position: fixed;
+    top: unset; /*what the actual fuck CSS*/
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    width: 50%;
+    max-height: 50vh;
+    margin: 0;
+    border-radius: 24px 24px 0 0;
+    /* border: 1px solid rgba(255, 255, 255, 0.12); */
+    /* background: rgba(16, 18, 36, 0.98); */
+    padding: 0.75rem 0.75rem 0.5rem;
+    z-index: 1000;
+    overflow: hidden;
+    /* box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.45); */
+  }
+
+  .surf-sidebar.hidden {
+    display: none;
+  }
+
+  .surf-sidebar .concept-list {
+    display: none;
+  }
+
+  .surf-video-wrapper {
+    /* padding-top: 56.25%;
+    border-radius: 18px; */
+  }
+
+  .surf-button {
+    width: 100%;
+  }
+
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .post-card {
+    padding-bottom: 7rem;
+  }
+}
+
 .post-body a:hover {
   text-decoration: underline;
 }
@@ -511,12 +702,6 @@ h1 {
   .hero-banner {
     min-height: 230px;
     padding: 1.5rem 1rem;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
   }
 
   .browse-panel,

@@ -14,7 +14,7 @@ function createTagChip(tag, activeTags) {
   const chip = document.createElement("button");
   chip.type = "button";
   const isActive = tag === "全部" ? activeTags.length === 0 : activeTags.includes(tag);
-  chip.className = `tag-item tag-chip${isActive ? " active" : ""}`;
+  chip.className = `tag-item tag-chip ${isActive ? " active" : ""}`;
   chip.textContent = tag;
   chip.dataset.tag = tag;
   return chip;

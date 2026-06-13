@@ -237,6 +237,15 @@ function renderPost(meta, content) {
   const postLength = getWordCount(content);
   document.getElementById("postLength").textContent = `字數：約 ${postLength} 字`;
 
+  const surfButton = document.getElementById("surfModeButton");
+  if (surfButton) {
+    if (canShowSurfButton(postLength)) {
+      surfButton.classList.remove("hidden");
+    } else {
+      surfButton.classList.add("hidden");
+    }
+  }
+
   const publish = formatDate(meta.published);
   const update = formatDate(meta.updated);
   const dates = [publish ? `發布：${publish}` : null, update ? `更新：${update}` : null].filter(Boolean).join(" • ");
@@ -252,9 +261,81 @@ function renderPost(meta, content) {
   });
 
   document.getElementById("postBody").innerHTML = renderMarkdown(content);
+  buildConceptList();
   if (window.hljs) {
     hljs.highlightAll();
   }
+}
+
+function buildConceptList() {
+  const postBody = document.getElementById("postBody");
+  const list = document.getElementById("conceptListItems");
+  const sidebar = document.getElementById("surfSidebar");
+
+  if (!postBody || !list || !sidebar) return;
+
+  list.innerHTML = "";
+  const headings = Array.from(postBody.querySelectorAll("h1, h2"));
+  if (!headings.length) {
+    sidebar.classList.add("hidden");
+    return;
+  }
+
+  headings.forEach((heading, index) => {
+    if (!heading.id) {
+      const text = heading.textContent.trim().toLowerCase();
+      const slug = text
+        .replace(/[^ -\p{L}\p{N}]+/gu, "-")
+        .replace(/^-+|-+$/g, "")
+        .replace(/--+/g, "-");
+      heading.id = slug || `heading-${index}`;
+    }
+
+    const item = document.createElement("li");
+    item.className = `concept-item concept-${heading.tagName.toLowerCase()}`;
+
+    const link = document.createElement("a");
+    link.href = `#${heading.id}`;
+    link.textContent = heading.textContent;
+
+    item.appendChild(link);
+    list.appendChild(item);
+  });
+
+  sidebar.classList.remove("hidden");
+}
+
+function canShowSurfButton(wordCount) {
+  return wordCount > 1000;
+}
+
+function createSurfButton() {
+  const button = document.getElementById("surfModeButton");
+  const sidebar = document.getElementById("surfSidebar");
+  const iframe = document.getElementById("surfVideoFrame");
+  const videoWrapper = document.getElementById("surfVideoWrapper");
+  const videoUrl = "https://www.youtube.com/embed/iKggOfcKM28?autoplay=1&mute=1&rel=0&modestbranding=1";
+
+  if (!button || !sidebar || !iframe || !videoWrapper) return;
+
+  function setSurfActive(active) {
+    if (active) {
+      iframe.src = videoUrl;
+      videoWrapper.classList.remove("hidden");
+      button.setAttribute("aria-expanded", "true");
+      button.textContent = "關閉長文輔助系統";
+    } else {
+      videoWrapper.classList.add("hidden");
+      button.setAttribute("aria-expanded", "false");
+      button.textContent = "開啟長文專注輔助系統";
+      iframe.src = "";
+    }
+  }
+
+  button.addEventListener("click", () => {
+    const isActive = !videoWrapper.classList.contains("hidden");
+    setSurfActive(!isActive);
+  });
 }
 
 function setupHiddenTextToggles() {
@@ -288,6 +369,7 @@ async function init() {
 
   const { metadata, content } = parseFrontMatter(markdown);
   renderPost(metadata, content);
+  createSurfButton();
 }
 
 init();
