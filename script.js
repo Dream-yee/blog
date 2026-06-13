@@ -262,6 +262,7 @@ function renderPost(meta, content) {
 
   document.getElementById("postBody").innerHTML = renderMarkdown(content);
   buildConceptList();
+  setupConceptScrollSpy();
   if (window.hljs) {
     hljs.highlightAll();
   }
@@ -303,6 +304,46 @@ function buildConceptList() {
   });
 
   sidebar.classList.remove("hidden");
+}
+
+function setupConceptScrollSpy() {
+  const postBody = document.getElementById("postBody");
+  const listLinks = Array.from(document.querySelectorAll("#conceptListItems a"));
+  const headings = Array.from(postBody.querySelectorAll("h1, h2"));
+  const conceptList = document.querySelector(".concept-list");
+  let lastActiveId = null;
+
+  if (!postBody || !listLinks.length || !headings.length) return;
+
+  function updateActiveLink() {
+    const offset = window.scrollY + window.innerHeight * 0.15;
+    let activeId = headings[0]?.id || null;
+
+    for (const heading of headings) {
+      if (heading.offsetTop <= offset) {
+        activeId = heading.id;
+      }
+    }
+
+    if (activeId === lastActiveId) return;
+    lastActiveId = activeId;
+
+    listLinks.forEach((link) => {
+      const isActive = link.getAttribute("href") === `#${activeId}`;
+      link.classList.toggle("active", isActive);
+      if (isActive && conceptList) {
+        link.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "nearest",
+        });
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveLink, { passive: true });
+  window.addEventListener("resize", updateActiveLink);
+  updateActiveLink();
 }
 
 function canShowSurfButton(wordCount) {

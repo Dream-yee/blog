@@ -505,19 +505,22 @@ h1 {
   justify-content: center;
   padding: 0.95rem 1.4rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(201, 169, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(201, 169, 255, 0.14);
   color: var(--lavender);
   font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 18px 45px rgba(55, 30, 120, 0.12);
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .surf-button:hover,
 .surf-button:focus-visible {
-  transform: translateY(-1px);
-  background: rgba(201, 169, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.24);
+  transform: translateY(-2px);
+  background: rgba(201, 169, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 22px 55px rgba(55, 30, 120, 0.18);
 }
 
 .surf-button.hidden {
@@ -526,14 +529,19 @@ h1 {
 
 .surf-sidebar {
   position: sticky;
-  top: 120px;
+  top: 20px;
   align-self: start;
   max-height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  border-radius: 24px;
-  /* border: 1px solid rgba(255, 255, 255, 0.12); */
-  /* background: rgba(16, 18, 36, 0.95); */
-  padding: 1rem;
+  border-radius: 28px;
+  background: rgba(12, 15, 28, 0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.22);
+  padding: 1.25rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .surf-sidebar.hidden {
@@ -541,14 +549,18 @@ h1 {
 }
 
 .concept-list {
-  margin-bottom: 1.5rem;
+  flex: 1 1 auto;
+  max-height: calc(100vh - 340px);
+  margin-bottom: 1rem;
+  overflow-y: auto;
+  padding-right: 0.15rem;
 }
 
 .concept-list-title {
   margin: 0 0 0.85rem;
   color: var(--lavender);
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -559,7 +571,7 @@ h1 {
 }
 
 .concept-item {
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.42rem;
 }
 
 .concept-item a {
@@ -567,6 +579,9 @@ h1 {
   text-decoration: none;
   display: block;
   line-height: 1.4;
+  padding: 0.55rem 0.75rem;
+  border-radius: 16px;
+  transition: background 0.24s ease, color 0.24s ease, transform 0.24s ease;
 }
 
 .concept-item.concept-h1 a {
@@ -575,13 +590,38 @@ h1 {
 
 .concept-item.concept-h2 a {
   color: var(--muted);
-  padding-left: 0.5rem;
+  padding-left: 0.95rem;
 }
 
 .concept-item a:hover,
 .concept-item a:focus-visible {
   color: var(--lavender);
-  text-decoration: underline;
+  background: rgba(201, 169, 255, 0.1);
+  transform: translateX(1px);
+}
+
+.concept-item a.active {
+  color: var(--text);
+  background: rgba(201, 169, 255, 0.18);
+  text-decoration: none;
+}
+
+.concept-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 169, 255, 0.25) transparent;
+}
+
+.concept-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.concept-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.concept-list::-webkit-scrollbar-thumb {
+  background: rgba(201, 169, 255, 0.25);
+  border-radius: 999px;
 }
 
 .surf-video-wrapper.hidden {
@@ -593,7 +633,10 @@ h1 {
   width: 100%;
   padding-top: 56.25%;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 20px 45px rgba(0, 0, 0, 0.18);
+  margin-top: 0.8rem;
 }
 
 .surf-video-wrapper iframe {
@@ -608,20 +651,18 @@ h1 {
   .surf-sidebar {
     display: block;
     position: fixed;
-    top: unset; /*what the actual fuck CSS*/
-    bottom: 10px;
+    bottom: 0;
     left: 0;
     right: 0;
-    width: 50%;
-    max-height: 50vh;
+    width: 100%;
+    max-height: 55vh;
     margin: 0;
     border-radius: 24px 24px 0 0;
-    /* border: 1px solid rgba(255, 255, 255, 0.12); */
-    /* background: rgba(16, 18, 36, 0.98); */
-    padding: 0.75rem 0.75rem 0.5rem;
+    background: rgba(12, 15, 28, 0.98);
+    padding: 0.85rem 0.85rem 0.75rem;
     z-index: 1000;
     overflow: hidden;
-    /* box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.45); */
+    box-shadow: 0 -24px 80px rgba(0, 0, 0, 0.28);
   }
 
   .surf-sidebar.hidden {
@@ -633,8 +674,8 @@ h1 {
   }
 
   .surf-video-wrapper {
-    /* padding-top: 56.25%;
-    border-radius: 18px; */
+    border-radius: 18px;
+    margin-top: 0;
   }
 
   .surf-button {
