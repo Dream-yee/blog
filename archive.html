@@ -11,6 +11,24 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#080812" />
     <title>文章瀏覽 | Dreamyee's blog</title>
+    <script>
+      (() => {
+        try {
+          const themes = {
+            purple: "#080812",
+            blue: "#06101f",
+            green: "#061812",
+          };
+          const savedTheme = localStorage.getItem("blog-theme");
+          if (Object.prototype.hasOwnProperty.call(themes, savedTheme)) {
+            document.documentElement.dataset.theme = savedTheme;
+            document.querySelector('meta[name="theme-color"]').setAttribute("content", themes[savedTheme]);
+          }
+        } catch (error) {
+          document.documentElement.dataset.theme = "blue";
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -19,7 +37,29 @@
         <div class="hero-overlay"></div>
         <div class="topbar">
           <a class="brand nav-link" href="index.html">Dreamyee</a>
-          <a class="nav-link" href="archive.html">文章瀏覽</a>
+          <div class="nav-actions">
+            <a class="nav-link" href="archive.html">文章瀏覽</a>
+            <div class="theme-switcher">
+              <button class="theme-trigger" type="button" aria-label="選擇主題色" aria-expanded="false" aria-controls="themeMenu">
+                <span class="theme-trigger-swatch" aria-hidden="true"></span>
+                <span class="theme-trigger-chevron" aria-hidden="true"></span>
+              </button>
+              <div class="theme-menu" id="themeMenu" role="menu" hidden>
+                <button class="theme-option" type="button" data-theme-choice="purple" role="menuitemradio" aria-checked="true">
+                  <span class="theme-option-swatch theme-purple" aria-hidden="true"></span>
+                  <span>紫色</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="blue" role="menuitemradio" aria-checked="false">
+                  <span class="theme-option-swatch theme-blue" aria-hidden="true"></span>
+                  <span>深藍</span>
+                </button>
+                <button class="theme-option" type="button" data-theme-choice="green" role="menuitemradio" aria-checked="false">
+                  <span class="theme-option-swatch theme-green" aria-hidden="true"></span>
+                  <span>深綠</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="hero-content">
           <p class="eyebrow">文章瀏覽</p>
@@ -48,6 +88,7 @@
       </main>
     </div>
 
+    <script src="theme.js"></script>
     <script src="archive.js"></script>
   </body>
 </html>

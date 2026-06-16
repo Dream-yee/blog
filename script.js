@@ -208,7 +208,7 @@ function updateJsonLd(meta, description) {
 function updateBanner(metadata) {
   const banner = document.getElementById("heroBanner");
   if (metadata.banner) {
-    banner.style.backgroundImage = `linear-gradient(135deg, rgba(88, 64, 204, 0.4), rgba(59, 27, 102, 0.75)), url('${metadata.banner}')`;
+    banner.style.backgroundImage = `linear-gradient(135deg, var(--hero-tint-start), var(--hero-tint-end)), url('${metadata.banner}')`;
   }
 }
 
