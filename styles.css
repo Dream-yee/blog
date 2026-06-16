@@ -686,6 +686,7 @@ h1 {
 
   .content-layout {
     grid-template-columns: 1fr;
+    padding: 0px;
   }
 
   .post-card {
@@ -774,6 +775,10 @@ h1 {
 
   .post-card {
     padding: 1.5rem;
+  }
+
+  .content-layout {
+    padding: 0px;
   }
 }
 
