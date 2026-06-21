@@ -3,7 +3,7 @@ title: 樹莓派初見
 subtitle: To remove French language pack: sudo rm -fr /*
 published: 2026-06-21
 updated: 
-tags: geek, linux
+tags: geek, linux, tutorial
 banner: 
 ---
 
