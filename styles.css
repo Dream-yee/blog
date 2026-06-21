@@ -668,7 +668,7 @@ h1 {
 
 .post-body a {
   color: var(--accent);
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 
 .content-layout {

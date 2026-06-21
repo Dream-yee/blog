@@ -1,11 +1,24 @@
 [
   {
+    "slug": "raspberry_pi_hello",
+    "title": "樹莓派初見",
+    "subtitle": "To remove French language pack: sudo rm -fr /*",
+    "published": "2026-06-21",
+    "updated": "",
+    "tags": [
+      "geek",
+      "linux"
+    ],
+    "banner": ""
+  },
+  {
     "slug": "GSAT_2",
     "title": "重考",
     "subtitle": "人生有三大錯覺：「她喜歡我」、「會贏喔」還有「我能學測就上」。",
     "published": "2026-06-11",
     "updated": "",
     "tags": [
+      "考試",
       "紀錄"
     ],
     "banner": "images/cat_on_book.png"

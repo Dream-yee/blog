@@ -3,7 +3,7 @@ title: 重考
 subtitle: 人生有三大錯覺：「她喜歡我」、「會贏喔」還有「我能學測就上」。
 published: 2026-06-11
 updated: 
-tags: 紀錄
+tags: 考試, 紀錄
 banner: images/cat_on_book.png
 ---
 
