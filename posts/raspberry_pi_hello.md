@@ -4,7 +4,7 @@ subtitle: To remove French language pack: sudo rm -fr /*
 published: 2026-06-21
 updated: 
 tags: geek, linux, tutorial
-banner: 
+banner: images/raspberry_pi_hello/IMG_0128.HEIC
 ---
 
 家裡閒置了一個 Raspberry Pi **5**，最近剛好有空了可以開開看。
