@@ -51,7 +51,7 @@ function filterPosts(posts, search, selectedTags) {
         .toLowerCase();
       const matchText = query ? text.includes(query) : true;
       const matchTag = selectedTags.length
-        ? selectedTags.every((tag) => (post.tags || []).includes(tag))
+        ? (post.tags || []).includes(selectedTags[0])
         : true;
       return matchText && matchTag;
     });
@@ -72,11 +72,10 @@ function renderFilterTags(posts, selectedTags) {
   allTags.forEach((tag) => {
     const chip = createTagChip(tag, selectedTags);
     chip.addEventListener("click", () => {
-      const index = currentTags.indexOf(tag);
-      if (index === -1) {
-        currentTags.push(tag);
+      if (currentTags.includes(tag)) {
+        currentTags = [];
       } else {
-        currentTags.splice(index, 1);
+        currentTags = [tag];
       }
       updateList(posts, document.getElementById("searchInput").value, currentTags);
     });
