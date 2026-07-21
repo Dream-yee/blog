@@ -111,6 +111,9 @@ body {
   padding: 2rem 1.25rem;
   background: linear-gradient(135deg, var(--hero-tint-start), var(--hero-tint-end));
   background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
 .hero-overlay {
