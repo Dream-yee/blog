@@ -510,7 +510,7 @@ body[data-page="post"] .post-page {
 
 .home-card {
   display: grid;
-  grid-template-columns: minmax(120px, 160px) 1fr;
+  grid-template-columns: minmax(120px, 200px) 1fr;
   align-items: center;
   gap: 0.7rem;
   padding: 0.7rem 0.85rem;
@@ -662,8 +662,30 @@ body[data-page="post"] .post-page {
   text-decoration: underline;
 }
 
+.home-card-hero .home-card-media,
+.home-card-cat .home-card-media {
+  min-height: 240px;
+  max-height: 240px;
+  aspect-ratio: 3 / 4;
+  background: transparent;
+}
+
+.home-card-hero .home-card-media img,
+.home-card-cat .home-card-media img {
+  object-fit: cover;
+  object-position: center;
+}
+
 .home-card-cat {
   grid-template-columns: minmax(220px, 280px) 1fr;
+  align-items: center;
+}
+
+.home-card-cat .home-card-content {
+  align-items: flex-start;
+  text-align: left;
+  justify-content: center;
+  align-self: center;
 }
 
 .home-grid {
