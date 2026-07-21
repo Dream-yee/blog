@@ -1,5 +1,7 @@
 const defaultPost = "posts/home.md";
 
+
+
 async function loadMarkdown(url) {
   try {
     let res = await fetch(url);
@@ -207,9 +209,26 @@ function updateJsonLd(meta, description) {
 
 function updateBanner(metadata) {
   const banner = document.getElementById("heroBanner");
-  if (metadata.banner) {
-    banner.style.backgroundImage = `linear-gradient(135deg, var(--hero-tint-start), var(--hero-tint-end)), url('${metadata.banner}')`;
+  if (!banner) return;
+
+  const applyBanner = (imagePath) => {
+    if (imagePath) {
+      banner.style.backgroundImage = `linear-gradient(135deg, var(--hero-tint-start), var(--hero-tint-end)), url('${imagePath}')`;
+    } else {
+      banner.style.backgroundImage = `linear-gradient(135deg, var(--hero-tint-start), var(--hero-tint-end))`;
+    }
+  };
+
+  if (!metadata.banner) {
+    applyBanner(null);
+    return;
   }
+
+  const imagePath = new URL(metadata.banner, buildBaseUrl()).href;
+  const image = new Image();
+  image.onload = () => applyBanner(imagePath);
+  image.onerror = () => applyBanner(null);
+  image.src = imagePath;
 }
 
 function getWordCount(text) {
@@ -404,6 +423,14 @@ function setupHiddenTextToggles() {
 document.addEventListener("DOMContentLoaded", setupHiddenTextToggles);
 
 async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const isPostPage = params.has("post");
+  document.body.dataset.page = isPostPage ? "post" : "home";
+
+  if (!isPostPage) {
+    return;
+  }
+
   const path = getPostPath();
   const markdown = await loadMarkdown(path);
   if (!markdown) return;

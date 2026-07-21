@@ -1,0 +1,12 @@
+<svg width="400" height="560" viewBox="0 0 400 560" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="560" rx="32" fill="#141a2a"/>
+  <rect x="34" y="34" width="332" height="492" rx="24" fill="#1f2740" stroke="#c9a9ff" stroke-width="4"/>
+  <circle cx="200" cy="280" r="108" fill="#c9a9ff" opacity="0.2"/>
+  <circle cx="200" cy="280" r="74" fill="#c9a9ff" opacity="0.35"/>
+  <path d="M236 214v112" stroke="#f4f5ff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M236 224c18-14 34-14 52 0" stroke="#f4f5ff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M236 286c18-14 34-14 52 0" stroke="#f4f5ff" stroke-width="12" stroke-linecap="round"/>
+  <rect x="86" y="108" width="228" height="22" rx="11" fill="#f4f5ff" opacity="0.8"/>
+  <rect x="86" y="144" width="186" height="14" rx="7" fill="#f4f5ff" opacity="0.55"/>
+  <text x="200" y="474" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#f4f5ff">Music art</text>
+</svg>
